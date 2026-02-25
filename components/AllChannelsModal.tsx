@@ -444,7 +444,7 @@ export function AllChannelsModal(props: ModalProps) {
             if (match[1] !== undefined) {
                 elements.push(<code key={`${keyPrefix}-code-${match.index}`} style={{ background: "#2f3136", padding: "1px 4px", borderRadius: "3px", fontSize: "85%", fontFamily: "monospace" }}>{match[1]}</code>);
             } else if (match[2] !== undefined) {
-                elements.push(<span key={`${keyPrefix}-sp-${match.index}`} style={{ background: "#202225", color: "#202225", borderRadius: "3px", padding: "0 2px", cursor: "default" }} onMouseEnter={e => { e.currentTarget.style.color = "#dcddde"; }} onMouseLeave={e => { e.currentTarget.style.color = "#202225"; }}>{match[2]}</span>);
+                elements.push(<span key={`${keyPrefix}-sp-${match.index}`} style={{ background: "#202225", color: "#202225", borderRadius: "3px", padding: "0 2px", cursor: "default" }} onMouseEnter={e => { e.currentTarget.style.color = "#dcddde"; }} onMouseLeave={e => { e.currentTarget.style.color = "#202225"; }}>{parseInlineMarkdown(match[2], `${keyPrefix}-sp-${match.index}`)}</span>);
             } else if (match[3] !== undefined) {
                 elements.push(<strong key={`${keyPrefix}-bi-${match.index}`}><em style={{ fontStyle: "italic" }}>{parseInlineMarkdown(match[3], `${keyPrefix}-bi-${match.index}`)}</em></strong>);
             } else if (match[4] !== undefined) {
@@ -795,7 +795,7 @@ export function AllChannelsModal(props: ModalProps) {
                 } else if (match[3] !== undefined) {
                     elements.push(<code key={`${keyBase}-c-${match.index}`} style={{ background: "#202225", padding: "1px 4px", borderRadius: "3px", fontSize: "85%", fontFamily: "monospace" }}>{match[3]}</code>);
                 } else if (match[4] !== undefined) {
-                    elements.push(<span key={`${keyBase}-sp-${match.index}`} style={{ background: "#202225", color: "#202225", borderRadius: "3px", padding: "0 2px", cursor: "default" }} onMouseEnter={e => { e.currentTarget.style.color = "#dcddde"; }} onMouseLeave={e => { e.currentTarget.style.color = "#202225"; }}>{match[4]}</span>);
+                    elements.push(<span key={`${keyBase}-sp-${match.index}`} style={{ background: "#202225", color: "#202225", borderRadius: "3px", padding: "0 2px", cursor: "default" }} onMouseEnter={e => { e.currentTarget.style.color = "#dcddde"; }} onMouseLeave={e => { e.currentTarget.style.color = "#202225"; }}>{parseEmbedInline(match[4], `${keyBase}-sp-${match.index}`)}</span>);
                 } else if (match[5]) {
                     elements.push(<strong key={`${keyBase}-bi-${match.index}`}><em style={{ fontStyle: "italic" }}>{match[5]}</em></strong>);
                 } else if (match[6]) {
