@@ -859,18 +859,28 @@ export function AllChannelsModal(props: ModalProps) {
                         ))}
                     </div>
                 )}
-                {embed.video && (
-                    <div style={{ marginTop: "8px", borderRadius: "4px", overflow: "hidden", maxWidth: "400px" }}>
-                        <video
-                            src={embed.video.proxy_url || embed.video.url}
-                            poster={embed.thumbnail?.proxy_url || embed.thumbnail?.url}
-                            controls
-                            preload="metadata"
-                            onClick={e => e.stopPropagation()}
-                            style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "4px", display: "block" }}
+                {embed.video && (() => {
+                    const vUrl = embed.video.proxy_url || embed.video.url;
+                    const isPlayable = /\.(mp4|webm|mov|ogg)(\?|$)/i.test(vUrl) || /discord(app)?\.com|discord\.net/i.test(vUrl);
+                    return isPlayable ? (
+                        <div style={{ marginTop: "8px", borderRadius: "4px", overflow: "hidden", maxWidth: "400px" }}>
+                            <video
+                                src={vUrl}
+                                poster={embed.thumbnail?.proxy_url || embed.thumbnail?.url}
+                                controls
+                                preload="metadata"
+                                onClick={e => e.stopPropagation()}
+                                style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "4px", display: "block" }}
+                            />
+                        </div>
+                    ) : (embed.thumbnail || embed.image) ? (
+                        <img
+                            src={embed.thumbnail?.proxy_url || embed.thumbnail?.url || embed.image?.proxy_url || embed.image?.url}
+                            alt=""
+                            style={{ maxWidth: "100%", maxHeight: "200px", borderRadius: "4px", marginTop: "8px" }}
                         />
-                    </div>
-                )}
+                    ) : null;
+                })()}
                 {!embed.video && (embed.image || embed.thumbnail) && (
                     <img
                         src={embed.image?.proxy_url || embed.image?.url || embed.thumbnail?.proxy_url || embed.thumbnail?.url}
